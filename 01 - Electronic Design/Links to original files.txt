@@ -1,0 +1,2 @@
+Motherboard: https://easyeda.com/fzigunov/Solenoid-Array-Driver
+Solenoid driver (36 channels): https://easyeda.com/fzigunov/Solenoid-16-Channel-Driver-Unit
