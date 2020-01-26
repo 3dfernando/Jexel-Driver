@@ -1,5 +1,5 @@
 # Jexel-Driver
-A PIC32-based programmable function generator and solenoid driver with 108 channels. 
+A PIC32-based programmable function generator and solenoid driver with 108 channels. Check 04 - Documentation/SigGen_Board_Datasheet_R02.pdf for usage instructions.
 
 This implementation employs a PIC32MZ2048ECH144 microcontroller to generate 108 independently programmable square waves. The computer interface is an FTDI FT232 chip, which becomes a USB-Serial interface and appears in the computer as a regular COM port. Sending strings to the COM port with the right settings will program/activate the "jexels" (short for jet-pixels), allowing interesting combinations. 
 
