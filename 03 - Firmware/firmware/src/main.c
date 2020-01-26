@@ -77,7 +77,7 @@ int main ( void )
     //=========Configure Timer2 interrupt
         T2CONbits.TON = 0;                /* turn off Timer 2 */
         T2CONbits.TCKPS = 0;                /* pre-scale = 1:1 */
-        PR2 = 1000;                    // T2 period = 50uS  (1us/100 counts)
+        PR2 = 2000;                    // T2 period = 100uS  (1us/100 counts)
         TMR2 = 0;                        /* clear Timer 2 counter */
 
         IPC2bits.T2IP = 4;                /* Set Timer 2 interrupt priority to 4 */

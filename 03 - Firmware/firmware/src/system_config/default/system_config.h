@@ -127,7 +127,7 @@ extern "C" {
 
 #define SYS_PORT_E_ANSEL        0xFC00
 #define SYS_PORT_E_TRIS         0xFC00
-#define SYS_PORT_E_LAT          0x0000
+#define SYS_PORT_E_LAT          0x0200
 #define SYS_PORT_E_ODC          0x0000
 #define SYS_PORT_E_CNPU         0x0000
 #define SYS_PORT_E_CNPD         0x0000

@@ -3,7 +3,7 @@
 APP_DATA appData;
 
 bool sigGenEnabled; //Enables signal generation
-const float fSampling=49800.; //Sampling Frequency
+const float fSampling=49800.; //Sampling Frequency (49800 when PR2 = 1000)
 
 unsigned long PA_COUNTER[18]; //Counter variable for timing
 unsigned long PB_COUNTER[18];
@@ -98,6 +98,35 @@ void ResetCounters(){
             
 }
 
+void ZeroSigGen(){    
+        //Resets all signal generator units to default OFF state                    
+        int i;
+        for (i=0;i<18;i++){
+            //All counters will have zero duty cycle
+            PA_ON[i]=PA_OFF[i];
+            PB_ON[i]=PB_OFF[i];
+            PC_ON[i]=PC_OFF[i];
+            PD_ON[i]=PD_OFF[i];
+            PE_ON[i]=PE_OFF[i];
+            PF_ON[i]=PF_OFF[i];
+        }  
+        
+        for (i=0;i<10;i++){
+            PORT_SHADOWREGISTERS[i]=0;
+        }
+            
+        LATA=PORT_SHADOWREGISTERS[0];
+        LATB=PORT_SHADOWREGISTERS[1];
+        LATC=PORT_SHADOWREGISTERS[2];
+        LATD=PORT_SHADOWREGISTERS[3];
+        LATE=PORT_SHADOWREGISTERS[4];
+        LATF=PORT_SHADOWREGISTERS[5];
+        LATG=PORT_SHADOWREGISTERS[6];
+        LATH=PORT_SHADOWREGISTERS[7];
+        LATJ=PORT_SHADOWREGISTERS[8]; 
+        LATK=PORT_SHADOWREGISTERS[9];   
+            
+}
 
 void APP_Initialize ( void )
 {
@@ -165,6 +194,11 @@ void APP_Tasks ( void )
             { 
 //                appData.state = APP_STATE_SERVICE_TASKS;
                 appData.state = APP_STATE_RX;   // change state to USART receive
+                
+                //Disables signal generation
+                sigGenEnabled=0;
+                ResetCounters();
+                outputString="INITIALIZED.\n";   
             }
             break;
         }
@@ -249,7 +283,12 @@ void APP_Tasks ( void )
                 //Re-enables signal generation
                 sigGenEnabled=1;
                 ResetCounters();
-                outputString="OK.\n";        
+                outputString="OK.\n";    
+            }else if(!strcmp(strCommand, "ZERO")){
+                //Makes all duty cycles zero (effectively turning all ports off)
+                sigGenEnabled=1;
+                ZeroSigGen();                
+                outputString="OK.\n";   
             }else if(!strcmp(strCommand, "CONF")){
                 //Changes configuration of a channel
                 int chVal;
